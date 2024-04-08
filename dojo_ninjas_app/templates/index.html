@@ -1,0 +1,246 @@
+<!-- {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dojos & Ninjas</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-6">
+          <h2 class="mb-4">Add a Dojo</h2>
+          <form action="/add_dojo" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="dojo_name">Name</label>
+              <input
+                type="text"
+                name="dojo_name"
+                id="dojo_name"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="city">City</label>
+              <input
+                type="text"
+                name="city"
+                id="city"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="state">State</label>
+              <input
+                type="text"
+                name="state"
+                id="state"
+                class="form-control"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <h2 class="mb-4">Add a Ninja</h2>
+          <form action="/add_ninja" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="first_name">First Name</label>
+              <input
+                type="text"
+                name="first_name"
+                id="first_name"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="last_name">Last Name</label>
+              <input
+                type="text"
+                name="last_name"
+                id="last_name"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="ninja_dojo">Dojo</label>
+              <select
+                name="ninja_dojo"
+                id="ninja_dojo"
+                class="form-control"
+                required
+              >
+                {% for dojo in dojos %}
+                <option value="{{ dojo.id }}">{{ dojo.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-5">
+      <h2 class="mb-4">All the Dojos</h2>
+      {% for dojo in dojos %}
+      <h4>Ninjas at the {{ dojo.name }} - {{ dojo.ninjas.all.count }}</h4>
+      <ul>
+        {% for ninja in dojo.ninjas.all %}
+        <li>{{ ninja.first_name }} {{ ninja.last_name }}</li>
+        {% endfor %}
+      </ul>
+      {% endfor %}
+    </div>
+
+    <div>
+      <form action="delete" method="post" class="ml-3">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{ dojo.id }}" />
+        <input
+          type="submit"
+          value="Delete"
+          class="btn btn-danger btn-sm delete-btn"
+        />
+      </form>
+    </div>
+  </body>
+</html> -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dojos & Ninjas</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-6">
+          <h2 class="mb-4">Add a Dojo</h2>
+          <form action="/add_dojo" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="dojo_name">Name</label>
+              <input
+                type="text"
+                name="dojo_name"
+                id="dojo_name"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="city">City</label>
+              <input
+                type="text"
+                name="city"
+                id="city"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="state">State</label>
+              <input
+                type="text"
+                name="state"
+                id="state"
+                class="form-control"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <h2 class="mb-4">Add a Ninja</h2>
+          <form action="/add_ninja" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="first_name">First Name</label>
+              <input
+                type="text"
+                name="first_name"
+                id="first_name"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="last_name">Last Name</label>
+              <input
+                type="text"
+                name="last_name"
+                id="last_name"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="ninja_dojo">Dojo</label>
+              <select
+                name="ninja_dojo"
+                id="ninja_dojo"
+                class="form-control"
+                required
+              >
+                <option>Select a Dojo</option>
+                {% for dojo in dojos %}
+                <option value="{{ dojo.id }}">{{ dojo.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-5">
+      <h2 class="mb-4">All the Dojos</h2>
+      {% for dojo in dojos %}
+      <div class="card mb-4">
+        <div class="card-header">
+          <h4 class="mb-0">
+            Ninjas at the {{ dojo.name }} - {{ dojo.ninjas.all.count }}
+          </h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled">
+            {% for ninja in dojo.ninjas.all %}
+            <li>{{ ninja.first_name }} {{ ninja.last_name }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="card-footer">
+          <form action="/remove_dojo" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="remove_dojo" value="{{ dojo.id }}" />
+            <input type="submit" class="btn btn-danger btn-sm" value="Delete" />
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>

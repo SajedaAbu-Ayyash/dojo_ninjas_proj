@@ -11,4 +11,19 @@ class Ninja(models.Model):
     last_name = models.CharField(max_length =255)
 
 
-# Create your models here.
+def display_dojos():
+    return Dojo.objects.all()
+
+def add_dojo(request):
+    dojo = Dojo.objects.create(name = request.POST['dojo_name'], city = request.POST['city'], state = request.POST['state'])
+
+def display_ninjas():
+    return Ninja.objects.all()
+
+def add_ninja(request):
+    ninja = Ninja.objects.create(first_name = request.POST['first_name'], last_name = request.POST['last_name'], dojo_id = request.POST['ninja_dojo'])
+
+def remove_dojo(post_data):
+    Dojo.objects.get(id = post_data['remove_dojo']).delete()
+    
+
